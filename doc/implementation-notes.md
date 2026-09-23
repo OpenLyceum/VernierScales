@@ -82,7 +82,7 @@ fully unit-tested without scenery.
 - `VernierScalesPanel` — pre-themed panel; all control panels use it so projector-mode
   switching is automatic.
 - `VernierScalesButtonOptions` / `VERNIER_SCALES_COMBO_BOX_OPTIONS` — flat button and
-  combo-box option bundles (see `CLAUDE.md`).
+  combo-box option bundles (see `AGENTS.md`).
 
 ## View pitfalls specific to this sim
 
