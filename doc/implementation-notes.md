@@ -123,7 +123,7 @@ Run `npm test`.
 
 ## Multi-screen simulations
 
-Already four screens. To add another, see [`multi-screen.md`](./multi-screen.md) §
+Already four screens. To add another, see [SceneryStackTemplate `doc/multi-screen.md`](https://github.com/OpenLyceum/SceneryStackTemplate/blob/main/doc/multi-screen.md) §
 "adding a second screen by hand": mirror an existing screen folder, add screen-name
 and `a11y.<screen>` keys to all three locale files, add a `StringManager` getter, add
 an icon factory in `VernierScalesScreenIcons.ts`, and register it in `main.ts`.

@@ -149,7 +149,7 @@ Requires Node 24+.
 ## Adding a screen
 
 `scaffold-screens` was a one-shot template script and has been removed. Add a screen by hand
-following [`doc/multi-screen.md`](doc/multi-screen.md) § "adding a second screen by hand": mirror an
+following [SceneryStackTemplate `doc/multi-screen.md`](https://github.com/OpenLyceum/SceneryStackTemplate/blob/main/doc/multi-screen.md) § "adding a second screen by hand": mirror an
 existing screen folder, add the screen-name and `a11y.<screen>` keys to all three locale files, add
 a `StringManager` getter, add an icon factory in `VernierScalesScreenIcons.ts`, and register it in
 `src/main.ts`.
