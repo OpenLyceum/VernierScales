@@ -157,3 +157,12 @@ a `StringManager` getter, add an icon factory in `VernierScalesScreenIcons.ts`, 
 ## PWA
 
 After `npm run build`, the sim is installable offline via Workbox (`dist/manifest.webmanifest`).
+
+## Accessibility
+
+Follows the shared [OpenLyceum accessibility convention](https://github.com/OpenLyceum/Baton/blob/main/ACCESSIBILITY.md).
+A11y strings live under the `a11y` key of each locale JSON, read through `StringManager`.
+
+- Screen summaries: `src/caliper/view/CaliperScreenSummaryContent.ts`, `src/instruments/view/InstrumentsScreenSummaryContent.ts`, `src/practice/view/PracticeScreenSummaryContent.ts`, `src/principle/view/VernierPrincipleScreenSummaryContent.ts`
+- Keyboard Shortcuts dialog: `src/caliper/view/CaliperKeyboardHelpContent.ts`, `src/instruments/view/InstrumentsKeyboardHelpContent.ts`, `src/practice/view/PracticeKeyboardHelpContent.ts`, `src/principle/view/VernierPrincipleKeyboardHelpContent.ts`
+- Keyboard-draggable objects: none (no draggable play-area objects use a keyboard drag listener yet)
