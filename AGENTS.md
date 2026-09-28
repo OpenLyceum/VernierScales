@@ -14,7 +14,7 @@ general. Forked from `SceneryStackTemplate`; the rename/scaffold scripts have be
 | Instruments (`src/instruments/`) | A vernier micrometer and a bevel protractor — the vernier on a rotating drum and on a circle. |
 | Practice (`src/practice/`) | A `vegas` game. Choose a level, read five instruments, type the answers, score. |
 
-## The one idea to hold onto
+### The one idea to hold onto
 
 **Everything is measured in "ticks": one tick is one least count.** `src/common/model/vernier.ts`
 knows nothing about millimetres, inches or degrees — it works in integers, so deciding which
@@ -63,33 +63,18 @@ Three consequences worth knowing before changing anything:
 | `src/VernierScalesConstants.ts` | Named numeric constants (layout px, model defaults) |
 | `src/i18n/StringManager.ts` | Singleton localized string accessor |
 
-## Conventions specific to this sim
+## Model
 
-- **Scale faces follow the colour profile**: dark in default mode, light in projector, with ticks
-  and numbers in the inverse shade (`scaleFaceColorProperty`, `scaleTickColorProperty`,
-  `scaleLabelColorProperty`). Always use these dedicated properties for anything drawn on a scale
-  face so the marks track the face; do not substitute the sim's general `textColorProperty`.
-- **Instrument metal is not a scale face.** The caliper's beam and plate and the micrometer's sleeve
-  and thimble are light in *both* profiles, so anything engraved on them uses
-  `instrumentStrokeColorProperty` (dark in both) — a `scaleTickColorProperty` mark would vanish
-  there in default mode. Highlights and shadows are derived from the body colours in
-  `common/view/metalFills.ts` rather than added to the palette.
-- **Never pass `visible: false` alongside a `visibleProperty`.** Scenery applies `visible` after
-  `visibleProperty` and writes it through, silently setting the caller's Property to false. Use a
-  constant `new BooleanProperty(false)` instead.
-- **Every reading goes through `readingProperties.ts`**, which keys off `localeProperty` so that
-  `23.14 mm` becomes `23,14 mm` in the French and Spanish builds. Do not use `toFixed` for a value
-  a user is meant to read off.
-- **The Practice screen does not highlight the coincident line** (`highlightCoincidence: false`) and
-  its scales are not draggable. Both would hand the student the answer.
-- **The Practice screen is a PhET game built on `vegas`**, not a free-running drill. `GameState` in
-  `PracticeModel` is the single source of truth for what is on screen — level selection, a challenge,
-  or a level result — and the view derives every visibility from it rather than keeping state of its
-  own. Scoring is the PhET standard: two points first try, one on the second, none after. Levels are
-  numbered from 1 because `LevelSelectionButtonGroup` and the `gameLevels` query parameter both
-  assume it. Text that is not a reading at all is not an attempt: it costs nothing and does not move
-  the state machine, because a typo is not evidence about reading a vernier.
-- Screen folders are concept-named (`principle/`, not `principle-screen/`).
+Physics and behavior: `doc/model.md`.
+
+## Accessibility
+
+Follows the shared [OpenLyceum accessibility convention](https://github.com/OpenLyceum/Baton/blob/main/ACCESSIBILITY.md).
+A11y strings live under the `a11y` key of each locale JSON, read through `StringManager`.
+
+- Screen summaries: `src/caliper/view/CaliperScreenSummaryContent.ts`, `src/instruments/view/InstrumentsScreenSummaryContent.ts`, `src/practice/view/PracticeScreenSummaryContent.ts`, `src/principle/view/VernierPrincipleScreenSummaryContent.ts`
+- Keyboard Shortcuts dialog: `src/caliper/view/CaliperKeyboardHelpContent.ts`, `src/instruments/view/InstrumentsKeyboardHelpContent.ts`, `src/practice/view/PracticeKeyboardHelpContent.ts`, `src/principle/view/VernierPrincipleKeyboardHelpContent.ts`
+- Keyboard-draggable objects: none (no draggable play-area objects use a keyboard drag listener yet)
 
 ## Compliance carve-outs
 
@@ -146,7 +131,37 @@ npm run lint && npm run check && npm run build && npm test
 
 Requires Node 24+.
 
-## Adding a screen
+## Development notes
+
+### Conventions specific to this sim
+
+- **Scale faces follow the colour profile**: dark in default mode, light in projector, with ticks
+  and numbers in the inverse shade (`scaleFaceColorProperty`, `scaleTickColorProperty`,
+  `scaleLabelColorProperty`). Always use these dedicated properties for anything drawn on a scale
+  face so the marks track the face; do not substitute the sim's general `textColorProperty`.
+- **Instrument metal is not a scale face.** The caliper's beam and plate and the micrometer's sleeve
+  and thimble are light in *both* profiles, so anything engraved on them uses
+  `instrumentStrokeColorProperty` (dark in both) — a `scaleTickColorProperty` mark would vanish
+  there in default mode. Highlights and shadows are derived from the body colours in
+  `common/view/metalFills.ts` rather than added to the palette.
+- **Never pass `visible: false` alongside a `visibleProperty`.** Scenery applies `visible` after
+  `visibleProperty` and writes it through, silently setting the caller's Property to false. Use a
+  constant `new BooleanProperty(false)` instead.
+- **Every reading goes through `readingProperties.ts`**, which keys off `localeProperty` so that
+  `23.14 mm` becomes `23,14 mm` in the French and Spanish builds. Do not use `toFixed` for a value
+  a user is meant to read off.
+- **The Practice screen does not highlight the coincident line** (`highlightCoincidence: false`) and
+  its scales are not draggable. Both would hand the student the answer.
+- **The Practice screen is a PhET game built on `vegas`**, not a free-running drill. `GameState` in
+  `PracticeModel` is the single source of truth for what is on screen — level selection, a challenge,
+  or a level result — and the view derives every visibility from it rather than keeping state of its
+  own. Scoring is the PhET standard: two points first try, one on the second, none after. Levels are
+  numbered from 1 because `LevelSelectionButtonGroup` and the `gameLevels` query parameter both
+  assume it. Text that is not a reading at all is not an attempt: it costs nothing and does not move
+  the state machine, because a typo is not evidence about reading a vernier.
+- Screen folders are concept-named (`principle/`, not `principle-screen/`).
+
+### Adding a screen
 
 `scaffold-screens` was a one-shot template script and has been removed. Add a screen by hand
 following [SceneryStackTemplate `doc/multi-screen.md`](https://github.com/OpenLyceum/SceneryStackTemplate/blob/main/doc/multi-screen.md) § "adding a second screen by hand": mirror an
@@ -154,15 +169,6 @@ existing screen folder, add the screen-name and `a11y.<screen>` keys to all thre
 a `StringManager` getter, add an icon factory in `VernierScalesScreenIcons.ts`, and register it in
 `src/main.ts`.
 
-## PWA
+### PWA
 
 After `npm run build`, the sim is installable offline via Workbox (`dist/manifest.webmanifest`).
-
-## Accessibility
-
-Follows the shared [OpenLyceum accessibility convention](https://github.com/OpenLyceum/Baton/blob/main/ACCESSIBILITY.md).
-A11y strings live under the `a11y` key of each locale JSON, read through `StringManager`.
-
-- Screen summaries: `src/caliper/view/CaliperScreenSummaryContent.ts`, `src/instruments/view/InstrumentsScreenSummaryContent.ts`, `src/practice/view/PracticeScreenSummaryContent.ts`, `src/principle/view/VernierPrincipleScreenSummaryContent.ts`
-- Keyboard Shortcuts dialog: `src/caliper/view/CaliperKeyboardHelpContent.ts`, `src/instruments/view/InstrumentsKeyboardHelpContent.ts`, `src/practice/view/PracticeKeyboardHelpContent.ts`, `src/principle/view/VernierPrincipleKeyboardHelpContent.ts`
-- Keyboard-draggable objects: none (no draggable play-area objects use a keyboard drag listener yet)
