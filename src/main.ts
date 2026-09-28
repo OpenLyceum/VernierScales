@@ -38,21 +38,25 @@ onReadyToLaunch(() => {
 
   const screens = [
     new VernierPrincipleScreen(simPreferences, {
+      // The screen name Property updates automatically when the locale changes
       name: stringManager.getScreenNames().principleStringProperty,
       tandem: Tandem.ROOT.createTandem("principleScreen"),
       backgroundColorProperty: VernierScalesColors.backgroundColorProperty,
     }),
     new CaliperScreen(simPreferences, {
+      // The screen name Property updates automatically when the locale changes
       name: stringManager.getScreenNames().caliperStringProperty,
       tandem: Tandem.ROOT.createTandem("caliperScreen"),
       backgroundColorProperty: VernierScalesColors.backgroundColorProperty,
     }),
     new InstrumentsScreen(simPreferences, {
+      // The screen name Property updates automatically when the locale changes
       name: stringManager.getScreenNames().instrumentsStringProperty,
       tandem: Tandem.ROOT.createTandem("instrumentsScreen"),
       backgroundColorProperty: VernierScalesColors.backgroundColorProperty,
     }),
     new PracticeScreen(simPreferences, {
+      // The screen name Property updates automatically when the locale changes
       name: stringManager.getScreenNames().practiceStringProperty,
       tandem: Tandem.ROOT.createTandem("practiceScreen"),
       backgroundColorProperty: VernierScalesColors.backgroundColorProperty,
