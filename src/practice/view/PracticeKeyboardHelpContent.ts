@@ -2,8 +2,10 @@
  * PracticeKeyboardHelpContent.ts
  *
  * Content for the keyboard-help dialog (the "?" button in the navigation bar).
- * This screen has no draggable vernier — the instrument is set for you to read —
- * so the standard actions are the whole story.
+ *
+ * The instrument is locked — reading it is the point — and the answer is a
+ * native text input. Basic Actions covers Tab, the game buttons, and Reset All.
+ * There is no sim HotkeyData on this screen to build a fromHotkeyData row from.
  */
 
 import { BasicActionsKeyboardHelpSection, TwoColumnKeyboardHelpContent } from "scenerystack/scenery-phet";

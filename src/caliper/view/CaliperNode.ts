@@ -340,6 +340,9 @@ export class CaliperNode extends Node {
     let startPointerX = 0;
     let startMeasurement = 0;
 
+    // Pointer-only: arrows, page up/down, and home/end already nudge the model via
+    // VernierHotkeyData (createVernierKeyboardListener), which is the binding the
+    // keyboard help renders. A KeyboardDragListener would bind the arrows twice.
     this.sliderTargetRect.addInputListener(
       new DragListener({
         start: (_event, listener) => {
