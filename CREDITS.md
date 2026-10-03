@@ -1,6 +1,6 @@
-# Credits — SceneryStackTemplate
+# Credits — VernierScales
 
-Reusable SceneryStack simulation template (one or N screens) with Vite, TypeScript, Biome, PWA support, and i18n scaffolding.
+A SceneryStack simulation about reading vernier scales. It starts from the vernier principle on two bare scales, then moves to a caliper, a vernier micrometer, and a bevel protractor. A practice game finishes the set.
 
 ## License
 
