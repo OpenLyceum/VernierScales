@@ -15,7 +15,7 @@
 
 import { describe, expect, it } from "vitest";
 import { formatReading } from "../src/common/model/readingFormat.js";
-import { canonicalRange, ReadingFormat } from "../src/common/model/VernierScaleSpec.js";
+import { canonicalRange, leastCount, ReadingFormat } from "../src/common/model/VernierScaleSpec.js";
 import {
   AnswerState,
   CHALLENGES_PER_LEVEL,
@@ -372,4 +372,15 @@ describe("levels", () => {
     expect(PracticeLevel.forNumber(3)).toBe(PracticeLevel.ZERO_ERROR);
     expect(() => PracticeLevel.forNumber(4)).toThrow();
   });
+});
+
+it("rejects a decimal answer between readable least counts", () => {
+  const model = new PracticeModel();
+  model.startLevel(PracticeLevel.METRIC);
+  const spec = model.scale.specProperty.value;
+  const value = model.expectedReadingValue;
+  model.answerTextProperty.value = String(value + 0.1 * leastCount(spec));
+  model.checkAnswer();
+  expect(model.answerStateProperty.value).toBe(AnswerState.INCORRECT);
+  expect(model.scoreProperty.value).toBe(0);
 });

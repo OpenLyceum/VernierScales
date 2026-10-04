@@ -277,9 +277,9 @@ export class PracticeModel implements TModel {
       return;
     }
 
-    // Both sides are whole numbers of least counts, so this is an exact
-    // comparison and not a tolerance check.
-    const isCorrect = Math.round(parsed) === this.scale.readingTicksProperty.value;
+    // Accept floating-point conversion noise, but never round an off-grid answer
+    // into the correct reading: students must transcribe the actual least count.
+    const isCorrect = Math.abs(parsed - this.scale.readingTicksProperty.value) < 1e-8;
     const attempt = this.attemptsProperty.value + 1;
     this.attemptsProperty.value = attempt;
 
