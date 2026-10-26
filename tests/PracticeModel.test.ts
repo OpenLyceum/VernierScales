@@ -92,7 +92,7 @@ describe("challenge generation", () => {
       model.newChallenge();
       seen.add(model.scale.specProperty.value.id);
     }
-    expect([...seen].sort()).toEqual(["inch128", "inchThou"]);
+    expect([...seen].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))).toEqual(["inch128", "inchThou"]);
   });
 
   it("gives the zero-error level a zero error, and the others none", () => {
