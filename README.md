@@ -47,7 +47,7 @@ npm run icons    # generate PNG icons from public/icons/icon.svg
 npm start        # dev server → http://localhost:5173
 ```
 
-Requires Node 24+.
+Requires Node 26+.
 
 ## Scripts
 

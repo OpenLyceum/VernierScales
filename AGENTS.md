@@ -129,7 +129,7 @@ npm run lint && npm run check && npm run build && npm test
 | `npm run test:fuzz` / `test:fuzz:quick` | Playwright fuzz smoke (10 s for the quick one) |
 | `npm run icons` | Regenerate PWA icons |
 
-Requires Node 24+.
+Requires Node 26+.
 
 ## Development notes
 
