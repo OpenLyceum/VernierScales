@@ -17,7 +17,7 @@
  *
  *  - **`n` is the number of vernier divisions.** By definition the least count is
  *    one main-scale division divided by `n`, so one main-scale division is
- *    exactly `n` ticks — see {@link mainDivisionTicks}.
+ *    exactly `n` ticks.
  *
  *  - **Offsets are measured from the main scale's zero** to the vernier's zero
  *    mark, in ticks. An offset may be fractional: a real caliper's jaws slide
@@ -73,14 +73,6 @@ export class VernierType extends EnumerationValue {
 const positiveModulo = (value: number, modulus: number): number => ((value % modulus) + modulus) % modulus;
 
 /**
- * Length of one main-scale division, in ticks. This is `n` by construction: the
- * least count *is* one main division split `n` ways, so choosing the least count
- * as the unit makes the main division an integer number of them.
- * @internal Exported for unit tests; not part of the application API.
- */
-export const mainDivisionTicks = (n: number): number => n;
-
-/**
  * How many main divisions the vernier scale spans end to end. This single
  * number is what distinguishes the three types.
  */
@@ -108,29 +100,14 @@ export const vernierSpanDivisions = (type: VernierType, n: number): number => {
 export const vernierDivisionTicks = (type: VernierType, n: number): number => vernierSpanDivisions(type, n);
 
 /**
- * Total length of the vernier scale, in ticks, from its zero mark to its last.
- * @internal Exported for unit tests; not part of the application API.
- */
-export const vernierLengthTicks = (type: VernierType, n: number): number => n * vernierDivisionTicks(type, n);
-
-/**
- * Position of vernier tick `index` in ticks, measured from the main scale's zero,
- * when the vernier's zero sits at `offsetTicks`.
- * @internal Exported for unit tests; not part of the application API.
- */
-export const vernierTickPosition = (offsetTicks: number, index: number, type: VernierType, n: number): number =>
-  offsetTicks + index * vernierDivisionTicks(type, n);
-
-/**
  * Whether the vernier's numbering runs opposite to the main scale's.
  *
  * A retrograde vernier's divisions are *longer* than the main scale's, so the
  * tick that lines up moves the wrong way as the vernier advances. Printing the
  * numbers in reverse cancels that out, which is the only reason a scale whose
  * geometry runs backwards can still be read forwards.
- * @internal Exported for unit tests; not part of the application API.
  */
-export const hasReversedNumbering = (type: VernierType): boolean => type === VernierType.RETROGRADE;
+const hasReversedNumbering = (type: VernierType): boolean => type === VernierType.RETROGRADE;
 
 /**
  * The number printed beneath vernier tick `index` — what a reader actually

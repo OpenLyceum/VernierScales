@@ -17,28 +17,25 @@ import { describe, expect, it } from "vitest";
 import {
   coincidentIndex,
   correctForZeroError,
-  hasReversedNumbering,
   mainDivisionsRead,
-  mainDivisionTicks,
   readingError,
   readingTicks,
   VernierType,
   vernierDivisionTicks,
   vernierLabel,
   vernierLabelRead,
-  vernierLengthTicks,
   vernierSpanDivisions,
-  vernierTickPosition,
 } from "../src/common/model/vernier.js";
+
+/** Tick position of vernier index `index` when the vernier zero sits at `offsetTicks`. */
+const vernierTickPosition = (offsetTicks: number, index: number, type: VernierType, n: number): number =>
+  offsetTicks + index * vernierDivisionTicks(type, n);
+
+const vernierLengthTicks = (type: VernierType, n: number): number => n * vernierDivisionTicks(type, n);
 
 const ALL_TYPES = [VernierType.DIRECT, VernierType.RETROGRADE, VernierType.EXTENDED] as const;
 
 describe("scale geometry", () => {
-  it("makes one main division exactly n ticks", () => {
-    expect(mainDivisionTicks(10)).toBe(10);
-    expect(mainDivisionTicks(50)).toBe(50);
-  });
-
   it("spans the number of main divisions each type is defined by", () => {
     // The 0.02 mm caliper: 50 divisions over 49 mm.
     expect(vernierSpanDivisions(VernierType.DIRECT, 50)).toBe(49);
@@ -55,19 +52,19 @@ describe("scale geometry", () => {
 
   it("makes a direct vernier division exactly one tick short of a main division", () => {
     for (const n of [8, 10, 20, 25, 50]) {
-      expect(mainDivisionTicks(n) - vernierDivisionTicks(VernierType.DIRECT, n)).toBe(1);
+      expect(n - vernierDivisionTicks(VernierType.DIRECT, n)).toBe(1);
     }
   });
 
   it("makes a retrograde vernier division exactly one tick long", () => {
     for (const n of [8, 10, 20, 25, 50]) {
-      expect(vernierDivisionTicks(VernierType.RETROGRADE, n) - mainDivisionTicks(n)).toBe(1);
+      expect(vernierDivisionTicks(VernierType.RETROGRADE, n) - n).toBe(1);
     }
   });
 
   it("makes an extended vernier division one tick short of two main divisions", () => {
     for (const n of [8, 10, 12, 20, 50]) {
-      expect(2 * mainDivisionTicks(n) - vernierDivisionTicks(VernierType.EXTENDED, n)).toBe(1);
+      expect(2 * n - vernierDivisionTicks(VernierType.EXTENDED, n)).toBe(1);
     }
   });
 
@@ -81,9 +78,10 @@ describe("scale geometry", () => {
   });
 
   it("reverses the numbering only for a retrograde vernier", () => {
-    expect(hasReversedNumbering(VernierType.DIRECT)).toBe(false);
-    expect(hasReversedNumbering(VernierType.EXTENDED)).toBe(false);
-    expect(hasReversedNumbering(VernierType.RETROGRADE)).toBe(true);
+    // vernierLabel mirrors indices for retrograde scales and leaves others alone.
+    expect(vernierLabel(3, VernierType.DIRECT, 10)).toBe(3);
+    expect(vernierLabel(3, VernierType.EXTENDED, 10)).toBe(3);
+    expect(vernierLabel(3, VernierType.RETROGRADE, 10)).toBe(7);
   });
 });
 
