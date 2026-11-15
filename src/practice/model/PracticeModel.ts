@@ -67,10 +67,16 @@ import { MAX_ZERO_ERROR_TICKS } from "../../VernierScalesConstants.js";
 /** How many readings make up one level. */
 export const CHALLENGES_PER_LEVEL = 5;
 
-/** Points for a reading got right without a wrong attempt. */
+/**
+ * Points for a reading got right without a wrong attempt.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const POINTS_FIRST_ATTEMPT = 2;
 
-/** Points for a reading got right on the second attempt. */
+/**
+ * Points for a reading got right on the second attempt.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const POINTS_SECOND_ATTEMPT = 1;
 
 /** The score for a level answered entirely first time. */

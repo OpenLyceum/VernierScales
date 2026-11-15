@@ -76,6 +76,7 @@ const positiveModulo = (value: number, modulus: number): number => ((value % mod
  * Length of one main-scale division, in ticks. This is `n` by construction: the
  * least count *is* one main division split `n` ways, so choosing the least count
  * as the unit makes the main division an integer number of them.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const mainDivisionTicks = (n: number): number => n;
 
@@ -108,12 +109,14 @@ export const vernierDivisionTicks = (type: VernierType, n: number): number => ve
 
 /**
  * Total length of the vernier scale, in ticks, from its zero mark to its last.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const vernierLengthTicks = (type: VernierType, n: number): number => n * vernierDivisionTicks(type, n);
 
 /**
  * Position of vernier tick `index` in ticks, measured from the main scale's zero,
  * when the vernier's zero sits at `offsetTicks`.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const vernierTickPosition = (offsetTicks: number, index: number, type: VernierType, n: number): number =>
   offsetTicks + index * vernierDivisionTicks(type, n);
@@ -125,6 +128,7 @@ export const vernierTickPosition = (offsetTicks: number, index: number, type: Ve
  * tick that lines up moves the wrong way as the vernier advances. Printing the
  * numbers in reverse cancels that out, which is the only reason a scale whose
  * geometry runs backwards can still be read forwards.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const hasReversedNumbering = (type: VernierType): boolean => type === VernierType.RETROGRADE;
 

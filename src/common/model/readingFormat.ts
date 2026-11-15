@@ -53,6 +53,7 @@ export const formatDecimal = (value: number, decimalPlaces: number, locale: stri
  *
  * A bevel protractor's least count is 5′, so the arcminute part is always a
  * multiple of five and never needs a fractional component.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const formatAngular = (ticks: number, spec: VernierScaleSpec): string => {
   const totalArcminutes = Math.round(ticks * leastCount(spec) * ARCMINUTES_PER_DEGREE);

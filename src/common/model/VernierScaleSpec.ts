@@ -88,13 +88,19 @@ export const spanDivisions = (spec: VernierScaleSpec): number => vernierSpanDivi
 /** Physical length (or angle) of the whole vernier scale, in the spec's units. */
 export const vernierSpan = (spec: VernierScaleSpec): number => spanDivisions(spec) * spec.mainDivision;
 
-/** Convert a physical measurement in the spec's units into integer-ish ticks. */
+/**
+ * Convert a physical measurement in the spec's units into integer-ish ticks.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const toTicks = (spec: VernierScaleSpec, value: number): number => value / leastCount(spec);
 
 /** Convert ticks back into the spec's physical units. */
 export const fromTicks = (spec: VernierScaleSpec, ticks: number): number => ticks * leastCount(spec);
 
-/** Exact, by definition of the international inch since 1959. */
+/**
+ * Exact, by definition of the international inch since 1959.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const MILLIMETRES_PER_INCH = 25.4;
 
 /**
@@ -174,7 +180,10 @@ export const METRIC_FIFTIETH: VernierScaleSpec = {
   range: 150,
 };
 
-/** Half-millimetre main scale, 20 divisions over 19 of them: 0.025 mm. */
+/**
+ * Half-millimetre main scale, 20 divisions over 19 of them: 0.025 mm.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const METRIC_HALF_MM: VernierScaleSpec = {
   id: "metricHalfMillimetre",
   mainLabelInterval: 20,
@@ -211,6 +220,7 @@ export const INCH_THOU: VernierScaleSpec = {
 /**
  * Toolroom decimal-inch caliper reading half a thou: the same 0.025 in main
  * scale, but 50 vernier divisions spanning 49 of them (1.225 in).
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const INCH_HALF_THOU: VernierScaleSpec = {
   id: "inchHalfThou",
@@ -244,7 +254,10 @@ export const INCH_128: VernierScaleSpec = {
   range: 6,
 };
 
-/** Coarser fractional rule: a 1/8 in main scale, 8 vernier divisions, 1/64 in. */
+/**
+ * Coarser fractional rule: a 1/8 in main scale, 8 vernier divisions, 1/64 in.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const INCH_64: VernierScaleSpec = {
   id: "inch64",
   mainLabelInterval: 8,
@@ -292,7 +305,10 @@ export const MICROMETER_MICRON: VernierScaleSpec = {
   range: 25,
 };
 
-/** Every preset, in the order they should appear in a selector. */
+/**
+ * Every preset, in the order they should appear in a selector.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const ALL_SCALE_SPECS: readonly VernierScaleSpec[] = [
   METRIC_TENTH,
   METRIC_TWENTIETH,
@@ -354,6 +370,9 @@ export const createPrincipleSpec = (type: VernierType, divisions: number): Verni
 /** Smallest and largest division counts the Principle screen offers. */
 export const PRINCIPLE_DIVISIONS_RANGE = { min: 4, max: 30 } as const;
 
-/** Look a preset up by {@link VernierScaleSpec.id}. */
+/**
+ * Look a preset up by {@link VernierScaleSpec.id}.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const scaleSpecById = (id: string): VernierScaleSpec | null =>
   ALL_SCALE_SPECS.find((spec) => spec.id === id) ?? null;

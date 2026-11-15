@@ -36,6 +36,7 @@ export type MixedNumber = {
 /**
  * Reduce `numerator / denominator` to lowest terms. A zero numerator reduces to
  * `0/1` so that callers never have to special-case it.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const reduceFraction = (numerator: number, denominator: number): { numerator: number; denominator: number } => {
   if (numerator === 0) {
@@ -51,6 +52,7 @@ export const reduceFraction = (numerator: number, denominator: number): { numera
  *
  * For a 1/128 in caliper `ticksPerUnit` is 128, so 165 ticks becomes
  * `1 37/128` and 160 ticks becomes `1 1/4`.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const toMixedNumber = (ticks: number, ticksPerUnit: number): MixedNumber => {
   const magnitude = Math.abs(ticks);
@@ -59,7 +61,10 @@ export const toMixedNumber = (ticks: number, ticksPerUnit: number): MixedNumber 
   return { negative: ticks < 0, whole, numerator, denominator };
 };
 
-/** The inverse of {@link toMixedNumber}: how many ticks a mixed number represents. */
+/**
+ * The inverse of {@link toMixedNumber}: how many ticks a mixed number represents.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export const fromMixedNumber = (mixed: MixedNumber, ticksPerUnit: number): number => {
   const magnitude = mixed.whole * ticksPerUnit + (mixed.numerator * ticksPerUnit) / mixed.denominator;
   return mixed.negative ? -magnitude : magnitude;
@@ -69,6 +74,7 @@ export const fromMixedNumber = (mixed: MixedNumber, ticksPerUnit: number): numbe
  * Render a mixed number the way it is written on a shop drawing: `1 37/128`,
  * `3/8`, `2`, `-1/16`. The unit symbol is the caller's business — this returns
  * the number alone so that string assembly stays with the i18n layer.
+ * @internal Exported for unit tests; not part of the application API.
  */
 export const formatMixedNumber = (mixed: MixedNumber): string => {
   const sign = mixed.negative ? "-" : "";
