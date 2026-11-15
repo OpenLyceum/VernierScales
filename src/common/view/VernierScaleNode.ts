@@ -491,5 +491,4 @@ export class VernierScaleNode extends Node {
  * How many main divisions to show when the whole vernier must be in frame — its
  * span plus a couple of divisions of context either side.
  */
-export const fullViewMainDivisions = (spec: VernierScaleSpec): number =>
-  vernierSpanDivisions(spec.type, spec.divisions) + 4;
+const fullViewMainDivisions = (spec: VernierScaleSpec): number => vernierSpanDivisions(spec.type, spec.divisions) + 4;

@@ -104,7 +104,7 @@ export const MILLIMETRES_PER_INCH = 25.4;
  * units, so that switching a caliper from millimetres to inches re-reads the
  * *same object* instead of silently reinterpreting 23.14 mm as 23.14 in.
  */
-export const canonicalPerSpecUnit = (spec: VernierScaleSpec): number =>
+const canonicalPerSpecUnit = (spec: VernierScaleSpec): number =>
   spec.quantity === ScaleQuantity.LENGTH_IN ? MILLIMETRES_PER_INCH : 1;
 
 /** Canonical value (mm or degrees) → the spec's own units. */

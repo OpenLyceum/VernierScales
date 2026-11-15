@@ -66,7 +66,7 @@ export const formatAngular = (ticks: number, spec: VernierScaleSpec): string => 
  * The reading as a bare number, without a unit symbol — the caller appends one
  * so that pattern strings stay in the i18n layer.
  */
-export const formatReadingValue = (ticks: number, spec: VernierScaleSpec, locale: string): string => {
+const formatReadingValue = (ticks: number, spec: VernierScaleSpec, locale: string): string => {
   switch (spec.format) {
     case ReadingFormat.DECIMAL:
       return formatDecimal(fromTicks(spec, ticks), spec.decimalPlaces, locale);

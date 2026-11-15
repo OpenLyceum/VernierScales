@@ -12,7 +12,7 @@ import type { VernierScaleModel } from "../model/VernierScaleModel.js";
 import { VernierHotkeyData } from "./VernierHotkeyData.js";
 
 /** Apply one vernier-motion keystroke to the model. */
-export const applyVernierKeyboardInput = (
+const applyVernierKeyboardInput = (
   model: VernierScaleModel,
   keysPressed: (typeof VernierHotkeyData.KEYBOARD_KEYS)[number],
 ): void => {
