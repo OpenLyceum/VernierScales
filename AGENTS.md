@@ -78,6 +78,7 @@ A11y strings live under the `a11y` key of each locale JSON, read through `String
 
 ## Compliance carve-outs
 
+- `.github/workflows/ci.yml`: `unused-mode: advisory` until both Knip default and production baselines are reviewed and cleared ([Baton/doc/knip.md](https://github.com/OpenLyceum/Baton/blob/main/doc/knip.md)).
 None. Root `VernierScalesConstants.ts`, `*Colors.ts`, `*Namespace.ts`, standard screen layout and
 full a11y wiring all pass Baton's compliance check as-is.
 
