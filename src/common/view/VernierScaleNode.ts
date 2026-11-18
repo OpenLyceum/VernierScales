@@ -318,6 +318,9 @@ export class VernierScaleNode extends Node {
     let startPointerX = 0;
     let startMeasurement = 0;
 
+    // Pointer-only: the focusable target's arrow, page and home/end keys already nudge the
+    // measurement through createVernierKeyboardListener (VernierHotkeyData, as the keyboard help
+    // renders). A RichDragListener would bind the arrows twice.
     target.addInputListener(
       new DragListener({
         start: (_event, listener) => {
