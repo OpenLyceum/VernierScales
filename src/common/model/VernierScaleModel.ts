@@ -28,6 +28,7 @@
  */
 
 import { DerivedProperty, NumberProperty, Property, type TReadOnlyProperty } from "scenerystack/axon";
+import { roundSymmetric } from "scenerystack/dot";
 import { canonicalRange, canonicalToTicks, ticksToCanonical, type VernierScaleSpec } from "./VernierScaleSpec.js";
 import {
   coincidentIndex,
@@ -136,7 +137,7 @@ export class VernierScaleModel {
     let value = Math.max(0, Math.min(canonicalValue, this.measurementRangeProperty.value));
     if (this.snapToReadableEnabledProperty.value) {
       const spec = this.specProperty.value;
-      value = ticksToCanonical(spec, Math.round(canonicalToTicks(spec, value)));
+      value = ticksToCanonical(spec, roundSymmetric(canonicalToTicks(spec, value)));
     }
     this.measurementProperty.value = value;
   }
@@ -149,7 +150,7 @@ export class VernierScaleModel {
   public stepByLeastCount(steps: number): void {
     const spec = this.specProperty.value;
     const ticks = canonicalToTicks(spec, this.measurementProperty.value);
-    this.setMeasurement(ticksToCanonical(spec, Math.round(ticks) + steps));
+    this.setMeasurement(ticksToCanonical(spec, roundSymmetric(ticks) + steps));
   }
 
   /** Nudge the measurement by whole main-scale divisions — the Page Up/Down step. */
@@ -160,7 +161,7 @@ export class VernierScaleModel {
   /** Snap the measurement to the nearest exactly readable value. */
   public snapToReadable(): void {
     const spec = this.specProperty.value;
-    this.setMeasurement(ticksToCanonical(spec, Math.round(canonicalToTicks(spec, this.measurementProperty.value))));
+    this.setMeasurement(ticksToCanonical(spec, roundSymmetric(canonicalToTicks(spec, this.measurementProperty.value))));
   }
 
   public reset(): void {

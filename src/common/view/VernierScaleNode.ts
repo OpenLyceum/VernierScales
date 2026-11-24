@@ -29,6 +29,7 @@
  */
 
 import { BooleanProperty, Multilink, type TReadOnlyProperty } from "scenerystack/axon";
+import { roundSymmetric } from "scenerystack/dot";
 import { localeProperty } from "scenerystack/joist";
 import { Shape } from "scenerystack/kite";
 import { optionize } from "scenerystack/phet-core";
@@ -163,7 +164,7 @@ class InteractiveTarget extends InteractiveHighlighting(Rectangle) {}
 /** Decimal places needed to write `value` exactly, capped at three. */
 const placesFor = (value: number): number => {
   for (let places = 0; places < 3; places++) {
-    if (Math.abs(value * 10 ** places - Math.round(value * 10 ** places)) < 1e-9) {
+    if (Math.abs(value * 10 ** places - roundSymmetric(value * 10 ** places)) < 1e-9) {
       return places;
     }
   }

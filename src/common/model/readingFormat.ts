@@ -12,6 +12,7 @@
  * are written the same way in every locale this sim ships.
  */
 
+import { roundSymmetric } from "scenerystack/dot";
 import { formatFractionalInch, parseFractionalInch } from "./inchFraction.js";
 import { fromTicks, leastCount, ReadingFormat, ScaleQuantity, type VernierScaleSpec } from "./VernierScaleSpec.js";
 
@@ -56,7 +57,7 @@ export const formatDecimal = (value: number, decimalPlaces: number, locale: stri
  * @internal Exported for unit tests; not part of the application API.
  */
 export const formatAngular = (ticks: number, spec: VernierScaleSpec): string => {
-  const totalArcminutes = Math.round(ticks * leastCount(spec) * ARCMINUTES_PER_DEGREE);
+  const totalArcminutes = roundSymmetric(ticks * leastCount(spec) * ARCMINUTES_PER_DEGREE);
   const degrees = Math.floor(Math.abs(totalArcminutes) / ARCMINUTES_PER_DEGREE);
   const arcminutes = Math.abs(totalArcminutes) % ARCMINUTES_PER_DEGREE;
   const sign = totalArcminutes < 0 ? "-" : "";
