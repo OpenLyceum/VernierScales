@@ -130,3 +130,7 @@ a `StringManager` getter, add an icon factory in `VernierScalesScreenIcons.ts`, 
 ### PWA
 
 After `npm run build`, the sim is installable offline via Workbox (`dist/manifest.webmanifest`).
+
+## Compliance carve-outs
+
+None.
