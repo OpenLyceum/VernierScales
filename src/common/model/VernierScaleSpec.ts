@@ -14,6 +14,7 @@
  * apart to judge coincidence by eye.
  */
 
+import { roundSymmetric } from "scenerystack/dot";
 import { VernierType, vernierSpanDivisions } from "./vernier.js";
 
 /** How a reading is written down once it has been taken. */
@@ -340,7 +341,7 @@ export const CALIPER_SCALE_SPECS: readonly VernierScaleSpec[] = [
 const placesForLeastCount = (divisions: number): number => {
   for (let places = 1; places < 4; places++) {
     const scaled = 10 ** places / divisions;
-    if (Math.abs(scaled - Math.round(scaled)) < 1e-9) {
+    if (Math.abs(scaled - roundSymmetric(scaled)) < 1e-9) {
       return places;
     }
   }

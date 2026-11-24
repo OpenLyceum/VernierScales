@@ -27,6 +27,7 @@
  */
 
 import { Multilink } from "scenerystack/axon";
+import { roundSymmetric } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { Node, type NodeOptions, Path, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
@@ -198,7 +199,7 @@ export class ProtractorNode extends Node {
       // indices — and every division is labelled so an odd-index coincidence still
       // shows the number a reader would transcribe.
       const labelIndex = index === spec.divisions ? spec.divisions : vernierLabel(index, spec.type, spec.divisions);
-      const arcminutes = Math.round(labelIndex * leastCount(spec) * 60);
+      const arcminutes = roundSymmetric(labelIndex * leastCount(spec) * 60);
       const labelRadius = DIAL_RADIUS - VERNIER_TICK - 9;
       this.labelsLayer.addChild(
         new Text(String(arcminutes), {

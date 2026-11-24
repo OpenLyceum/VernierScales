@@ -31,6 +31,7 @@
  *    what number is printed under it ({@link vernierLabel}).
  */
 
+import { roundSymmetric } from "scenerystack/dot";
 import { Enumeration, EnumerationValue } from "scenerystack/phet-core";
 
 /**
@@ -126,7 +127,7 @@ export const vernierLabel = (index: number, type: VernierType, n: number): numbe
  * all three resolve a main division into the same `n` parts — and independent of
  * `n` as well, once the offset is already expressed in ticks.
  */
-export const readingTicks = (offsetTicks: number): number => Math.round(offsetTicks);
+export const readingTicks = (offsetTicks: number): number => roundSymmetric(offsetTicks);
 
 /**
  * How many whole main-scale divisions the reading contains — the number a reader
